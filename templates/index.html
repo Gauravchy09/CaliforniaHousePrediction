@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>California Housing Prediction</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+* {margin:0; padding:0; box-sizing:border-box;}
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  background: linear-gradient(135deg,#0f172a,#1e293b);
+  overflow-x: hidden;
+}
+
+/* Background animation */
+#background {
+  position: fixed; inset: 0;
+  background: linear-gradient(270deg, #1e3c72, #2a5298, #0f172a);
+  background-size: 600% 600%;
+  animation: gradientShift 18s ease infinite;
+  z-index: -1;
+}
+@keyframes gradientShift {0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+
+/* Header */
+header {text-align: center; padding: 40px 20px 20px; max-width: 900px; margin: 0 auto;}
+header h1 {font-size: 3rem; font-weight: 700; background: linear-gradient(90deg, #f97316, #facc15); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: fadeInDown 1s ease;}
+header p {margin-top: 20px; font-size: 1.1rem; color: #e2e8f0; line-height: 1.8; animation: fadeIn 1.2s ease;}
+@keyframes fadeInDown {from {opacity:0; transform: translateY(-40px);} to {opacity:1; transform: translateY(0);}}
+@keyframes fadeIn {from {opacity:0;} to {opacity:1;}}
+
+/* Features Grid */
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  gap: 30px;
+  max-width: 1100px;
+  margin: 50px auto;
+  padding: 0 20px;
+}
+.feature-box {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  transition: transform .3s, box-shadow .3s;
+}
+.feature-box:hover {transform: translateY(-12px); box-shadow: 0 15px 30px rgba(0,0,0,.35);}
+.feature-box span {font-size: 2.5rem; display: block; margin-bottom: 15px;}
+.feature-box h3 {font-size: 1.3rem; font-weight: 600; margin-bottom: 10px;}
+.feature-box p {font-size: 0.95rem; color: #cbd5e1; line-height: 1.5;}
+
+/* Buttons */
+.action-button {
+  display: inline-block;
+  margin: 20px 10px;
+  padding: 14px 35px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  border: none;
+  color: #fff;
+  background: linear-gradient(90deg,#f97316,#ea580c);
+  cursor: pointer;
+  transition: transform .3s, box-shadow .3s;
+  text-decoration: none;
+}
+.action-button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(249,115,22,0.6);
+}
+
+/* Special button for About Me */
+.about-button {
+  background: linear-gradient(90deg,#3b82f6,#0ea5e9);
+}
+
+/* Footer */
+footer {text-align: center; padding: 40px 20px; color: #94a3b8; font-size: 0.9rem;}
+
+@media(max-width:768px){
+  header h1{font-size:2.5rem;}
+  header p{font-size:1rem;}
+  .resources {flex-direction: column; align-items:center;}
+}
+</style>
+</head>
+<body>
+<div id="background"></div>
+
+<header>
+  <h1>🏡 California Housing Price Prediction</h1>
+  <p>
+    Unlock insights into California's housing market.  
+    Enter neighborhood data like income, age, population, and more — then predict the <strong>Median House Value</strong> with our ML-powered tool.
+  </p>
+</header>
+
+<section class="features">
+  <div class="feature-box"><span>💰</span><h3>Median Income</h3><p>Reflects the average income of residents in the area.</p></div>
+  <div class="feature-box"><span>🏠</span><h3>House Age</h3><p>Shows the median age of houses in the block.</p></div>
+  <div class="feature-box"><span>🛏️</span><h3>Rooms & Bedrooms</h3><p>Average number of rooms and bedrooms per household.</p></div>
+  <div class="feature-box"><span>👨‍👩‍👧</span><h3>Population</h3><p>Total people living in the block group.</p></div>
+  <div class="feature-box"><span>👥</span><h3>Occupancy</h3><p>Average number of people per household.</p></div>
+  <div class="feature-box"><span>📍</span><h3>Location</h3><p>Geographic coordinates: Latitude & Longitude.</p></div>
+</section>
+
+<div style="text-align:center;">
+  <a class="action-button" href="/predict">🚀 Start Predicting</a>
+  <a class="action-button" href="/download" download>📥 Download Dataset</a>
+  <a class="action-button" href="https://github.com/Gauravchy09" target="_blank">💻 View on GitHub</a>
+  <!-- <a class="action-button" href="/contact">👨‍💻 Know More About Me</a> -->
+</div>
+
+<footer>
+  © 2025 California Housing ML Project · Built with Flask & ❤️-by gaurav
+</footer>
+</body>
+</html>

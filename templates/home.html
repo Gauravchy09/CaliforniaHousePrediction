@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>California Housing Prediction</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+* {margin:0; padding:0; box-sizing:border-box;}
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  background: linear-gradient(135deg,#0f172a,#1e293b);
+  overflow-x: hidden;
+}
+
+/* Background animation */
+#background {
+  position: fixed; inset: 0;
+  background: linear-gradient(270deg, #1e3c72, #2a5298, #0f172a);
+  background-size: 600% 600%;
+  animation: gradientShift 20s ease infinite;
+  z-index: -1;
+}
+@keyframes gradientShift {
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+/* Header */
+header {
+  text-align: center;
+  padding: 80px 20px 40px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+header h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #f97316, #facc15);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: fadeInDown 1s ease;
+}
+header p {
+  margin-top: 20px;
+  font-size: 1.1rem;
+  color: #cbd5e1;
+  line-height: 1.6;
+  animation: fadeIn 1.2s ease;
+}
+@keyframes fadeInDown {from {opacity:0; transform: translateY(-40px);} to {opacity:1; transform: translateY(0);}}
+@keyframes fadeIn {from {opacity:0;} to {opacity:1;}}
+
+/* Form Card */
+.form-card {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 40px 30px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  backdrop-filter: blur(20px);
+  border-radius: 25px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  transition: transform .3s, box-shadow .3s;
+}
+.form-card:hover {transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,.4);}
+.form-card h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-align: center;
+  background: linear-gradient(90deg,#f97316,#facc15);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Input grid */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+  gap: 20px;
+}
+
+/* Input boxes like feature cards */
+.label-container {
+  position: relative;
+}
+.label-container input {
+  width: 100%;
+  padding: 16px 14px;
+  font-size: 1rem;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+  outline: none;
+  transition: all .3s;
+}
+.label-container input:focus {
+  border: 1px solid #f97316;
+  box-shadow: 0 0 8px rgba(249,115,22,0.5);
+  background: rgba(255,255,255,0.1);
+}
+.label-container label {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  pointer-events: none;
+  transition: all .2s ease;
+}
+.label-container input:focus + label,
+.label-container input:not(:placeholder-shown) + label {
+  top: -10px;
+  left: 14px;
+  font-size: 0.75rem;
+  color: #facc15;
+  background: rgba(0,0,0,0.2);
+  padding: 0 4px;
+  border-radius: 4px;
+}
+
+/* Predict Button */
+.predict-button {
+  display:block;
+  width: 100%;
+  margin-top:30px;
+  padding:16px;
+  font-size:1.2rem;
+  font-weight:600;
+  border-radius: 14px;
+  border:none;
+  color:#fff;
+  background: linear-gradient(90deg,#f97316,#ea580c);
+  cursor:pointer;
+  transition: transform .3s, box-shadow .3s;
+}
+.predict-button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(249,115,22,0.6);
+}
+
+/* Prediction result */
+.result {
+  margin-top:30px;
+  text-align:center;
+  font-size:1.3rem;
+  font-weight:600;
+  color:#facc15;
+  padding:16px;
+  border-radius:12px;
+  animation: fadeIn 0.8s ease;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 40px 20px;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+@media(max-width:768px){
+  header h1{font-size:2.5rem;}
+  header p{font-size:1rem;}
+}
+</style>
+</head>
+<body>
+<div id="background"></div>
+
+<header>
+  <h1>🏡 California Housing Price Prediction</h1>
+  <p>Enter neighborhood data like income, age, rooms, population, and more — then predict the <strong>Median House Value</strong> with our ML-powered tool.</p>
+</header>
+
+<div class="form-card">
+  <h2>Enter Housing Details</h2>
+  <form method="POST" action="/predict">
+    <div class="form-grid">
+      <div class="label-container">
+        <input type="number" id="MedInc" name="MedInc" step="0.01" placeholder=" " required>
+        <label for="MedInc">Median Income</label>
+      </div>
+      <div class="label-container">
+        <input type="number" id="HouseAge" name="HouseAge" placeholder=" " required>
+        <label for="HouseAge">House Age</label>
+      </div>
+      <div class="label-container">
+        <input type="number" id="AveRooms" name="AveRooms" step="0.01" placeholder=" " required>
+        <label for="AveRooms">Average Rooms</label>
+      </div>
+      <div class="label-container">
+        <input type="number" id="AveBedrms" name="AveBedrms" step="0.01" placeholder=" " required>
+        <label for="AveBedrms">Average Bedrooms</label>
+      </div>
+      <div class="label-container">
+        <input type="number" id="Population" name="Population" placeholder=" " required>
+        <label for="Population">Population</label>
+      </div>
+      <div class="label-container">
+        <input type="number" id="AveOccup" name="AveOccup" step="0.01" placeholder=" " required>
+        <label for="AveOccup">Average Occupancy</label>
+      </div>
+      <div class="label-container">
+        <input type="number" id="Latitude" name="Latitude" step="0.01" placeholder=" ">
+        <label for="Latitude">Latitude</label>
+      </div>
+      <div class="label-container">
+        <input type="number" id="Longitude" name="Longitude" step="0.01" placeholder=" ">
+        <label for="Longitude">Longitude</label>
+      </div>
+    </div>
+    <button type="submit" class="predict-button">🚀 Predict House Value</button>
+  </form>
+
+  {% if results %}
+  <div class="result">
+    Predicted Median House Value: <b>${{ results }}</b>
+  </div>
+  {% endif %}
+</div>
+
+<footer>
+  © 2025 California Housing ML Project · Built with Flask & ❤️-by gaurav
+</footer>
+
+</body>
+</html>
