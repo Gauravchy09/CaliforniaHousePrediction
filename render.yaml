@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: california-housing-prediction
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
+    autoDeploy: true
